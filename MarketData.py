@@ -1,4 +1,21 @@
+"""
+Historical market data for structured Fund
+"""
+class StructuredFundHisotricalMarketData(object):
+	def __init__(self, date, netvalue_a, px_a, premium_a, netvalue_b, px_b, premium_b, netvalue_base, premium_base):
+		self.date = date
+		self.netvalue_a = netvalue_a
+		self.price_a = px_a
+		self.premium_a = premium_a
+		self.netvalue_b = netvalue_b
+		self.px_b = px_b
+		self.premium_b = premium_b
+		self.netvalue_base = netvalue_base
+		self.premium_base = premium_base
 
+"""
+Real time market data for general equity product
+"""
 class MarketData(object):
 	def __init__(self, symbol):
 		self.symbol = symbol

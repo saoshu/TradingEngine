@@ -62,21 +62,21 @@ class MarketDataManager(object):
 		OMSLogger.debug("Sending request to get market data...")
 		i = 0
 		j = 50
-		while j < len(symbol_list):
-			feed = urllib.urlopen(self.__build_request__(symbol_list[i:j])) #TODO !!! takes aorund 2 seconds
-			OMSLogger.debug(feed.geturl())
-			OMSLogger.debug("Got market data response!")
-			market_data_str_list = []
-			OMSLogger.debug("===>Reading each line of the response") #--->> 23 seconds to read/decode this response
-			for line in feed.readlines(): #TODO !!!readlines takes around 20 seconds 
-											--> shorten the requested symbol list resolves this issue, but why?
-				# OMSLogger.debug("Decoding lines ...")
-				market_data = line.decode('GBK')			
-				market_data_str_list.append(market_data)
-			OMSLogger.debug("===>Response parsed Successfully")
-			feed.close()
-			i=j
-			j+=50
+		market_data_str_list = []
+		#while j < len(symbol_list):
+		feed = urllib.urlopen(self.__build_request__(symbol_list[i:j])) #TODO !!! takes aorund 2 seconds
+		OMSLogger.debug(feed.geturl())
+		OMSLogger.debug("Got market data response!")
+		OMSLogger.debug("===>Reading each line of the response") #--->> 23 seconds to read/decode this response
+		for line in feed.readlines(): #TODO !!!readlines takes around 20 seconds 
+										#--> shorten the requested symbol list resolves this issue, but why?
+			# OMSLogger.debug("Decoding lines ...")
+			market_data = line.decode('GBK')			
+			market_data_str_list.append(market_data)
+		OMSLogger.debug("===>Response parsed Successfully")
+		feed.close()
+			# i=j
+			# j+=50
 
 		return market_data_str_list
 
@@ -121,12 +121,14 @@ class MarketDataManager(object):
 		@param: symbol_list is a list instance, indicating which symbols to get the market_data
 		@return market data dictionary, key=symbol, 
 		"""		
-		market_data_list = []
+		market_data_list = {}
 		not_subscribed_symbol_list = []
 		for symbol in symbol_list:
 			if symbol not in self.registered_symbol_list:
+				OMSLogger.debug("{0} is not registered, requesting market data once on demand!".format(symbol))
 				not_subscribed_symbol_list.append(symbol)
 			else:
+				OMSLogger.debug("{1} is registered already, returning the latest market data from cache!".format(symbol))
 				market_data_list[symbol] = self.market_data_list[symbol]
 
 		self.__reload_market_data__(market_data_list, not_subscribed_symbol_list)
