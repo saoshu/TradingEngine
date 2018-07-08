@@ -1,0 +1,24 @@
+=============================== ======================
+= SITE FUNCTIONALITIES                              =
+=====================================================
+This site is designed to 
+1. Actively monitoring several different investment assets and check/alert if there is arbitrage oppotunity
+	a. Structured Fund A/B arbitrage
+	b. A/H arbitrage
+	c. USD/Gold arbitrage
+	d. IndexFuture/Inex arbitrage
+2. Experiment a new investment strategy
+
+=====Product Management====================
+1. List view, to show all products in the database
+2. Detail view, 
+3. Add/Edit/Remove product
+
+====================================================
+SOME TECHNICAL DRAFTS
+====================================================
+1. Structured Fund A/B arbitrage
+	a. DataModel:
+		# Fund: FunName, FundCode, PurchaseFee, RedeemFee
+			CurFaceValue, CumFaceValue
+		# BaseFund: FundName, 

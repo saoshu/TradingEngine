@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+		<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>  
+		<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+		<script type="text/javascript">
+			$(document).ready( function () {
+			    $('#fund_list_table').DataTable({
+			    	paging: false,
+			    });
+			    $("#reload_fund").click(function() {
+					$("#reload_fund").load("reload");
+				});
+			});
+			
+		</script>
+	</head>
+	<body>
+		{% if structured_fund_list %}
+		<table id="fund_list_table" class="display" border="1">
+			<thead>
+				<tr>
+					<th>母基代码</th>
+					<th>母基名称</th>
+					<th>A代码</th>
+					<th>A名称</th>
+					<th>B代码</th>
+					<th>B名称</th>
+					<th>A:B</th>		
+				</tr>
+			</thead>
+			<tbody>
+				{% for fund in structured_fund_list %}
+				<tr>
+					<td>{{ fund.base_product_code.product_code }}</td>
+					<td>{{ fund.base_product_code.product_name }}</td>
+					<td>{{ fund.leg_a.product_code }}</td>
+					<td>{{ fund.leg_a.product_name }}</td>
+					<td>{{ fund.leg_b.product_code }}</td>
+					<td>{{ fund.leg_b.product_name }}</td>
+					<td>{{ fund.ratio_a }}:{{ fund.ratio_b }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% else %}
+		<p>No structured fund found so far!</p>
+		{% endif %}
+
+		<a id="reload_fund">Reload基金数据</a>
+	</body>
+</html>

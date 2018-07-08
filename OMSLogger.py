@@ -7,9 +7,9 @@ class OMSLogger(object):
 	# 	return _instance
 			
 	@staticmethod
-	def init_log_system():
+	def init_log_system(log_level=logging.DEBUG):
 		FORMAT = "%(asctime)-15s %(message)s"
-		logging.basicConfig(level=logging.DEBUG, format=FORMAT)
+		logging.basicConfig(level=log_level, format=FORMAT)
 
 	@staticmethod
 	def debug(message):		
